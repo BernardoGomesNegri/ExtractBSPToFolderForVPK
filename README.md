@@ -30,4 +30,4 @@ Into this:
       * materials
         * texture.vmt (this file still wouldn't be read if this was a vpk)
   * materials
-    * texture.vmt (this file would be read by the game and the map would use it)
+    * texture.vmt (this file would be read by the game and the map would use it instead)
