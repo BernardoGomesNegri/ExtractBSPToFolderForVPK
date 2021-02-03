@@ -1,21 +1,20 @@
-import zipfile
 import os
 import shutil
 from pathlib import Path
-import subprocess
-import glob
-import sys
 from CheckFolderIsValid import CheckFolderIsValid
+from CopyMapContents import CopyMapContents
+import multiprocessing
 
+print('test')
 #Use this where you want your output folder to be. Preferably empty
-OutputDirStr = input('Where your output folder should be. Preferrably empty \n')
+OutputDirStr = input('Where should your output folder should? Preferrably empty \n')
 print('Output folder: ', OutputDirStr)
 CheckFolderIsValid(OutputDirStr)
 
 #Where the input folder is, with maps/
-InputFolderStr = input('Where your input folder is, with the subfolder /maps \n')
+InputFolderStr = input('Where your input folder is, with the subfolder /maps? \n')
 print('Input folder: ', InputFolderStr)
-CheckFolderIsValid(OutputDirStr)
+CheckFolderIsValid(InputFolderStr)
 
 InputFolder = Path(InputFolderStr)
 TempDir = Path(OutputDirStr)
@@ -24,33 +23,14 @@ TempDir = Path(OutputDirStr)
 MapsFolderStr = os.path.join(InputFolderStr, 'maps\\')
 Maps = Path(MapsFolderStr).rglob('*.bsp')
 MapsList = [x for x in Maps]
-subdirectories = ('cfg', 'maps', 'materials', 'media', 'resource', 'scripts', 'sound', 'models')
-progressCount = 0
 
-for map in MapsList:
-    try:
-        z = zipfile.ZipFile(map)
-        fileList = z.namelist()
+Arguments = []
+for m in MapsList:
+    Arguments.append((m, OutputDirStr))
 
-        for embeddedFile in fileList:
 
-            if(embeddedFile.startswith(subdirectories)):
-                #We found an asset file!
-
-                PathToExtract = os.path.join(OutputDirStr)
-
-                z.extract(embeddedFile, PathToExtract)
-        
-        progressCount = progressCount + 1
-        print('Done map ' + str(progressCount) + ' out of ' + str(len(MapsList)))
-
-    except Exception:
-        type, value, traceback = sys.exc_info()
-        print(value)
-        print(traceback)
-        print(type)
-        print('Could not open' + str(map))
-        
+pool = multiprocessing.Pool()
+outcomes = pool.starmap(CopyMapContents, Arguments)
 
 #Puts the original assets in our folder
 print('Copying original files')
