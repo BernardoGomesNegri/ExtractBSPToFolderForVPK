@@ -5,12 +5,17 @@ from pathlib import Path
 import subprocess
 import glob
 import sys
+from CheckFolderIsValid import CheckFolderIsValid
 
 #Use this where you want your output folder to be. Preferably empty
-OutputDirStr = ''
+OutputDirStr = input('Where your output folder should be. Preferrably empty \n')
+print('Output folder: ', OutputDirStr)
+CheckFolderIsValid(OutputDirStr)
 
 #Where the input folder is, with maps/
-InputFolderStr = ''
+InputFolderStr = input('Where your input folder is, with the subfolder /maps \n')
+print('Input folder: ', InputFolderStr)
+CheckFolderIsValid(OutputDirStr)
 
 InputFolder = Path(InputFolderStr)
 TempDir = Path(OutputDirStr)
