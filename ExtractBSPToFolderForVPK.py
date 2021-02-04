@@ -9,16 +9,22 @@ import time
 
 
 if __name__ == '__main__':
-    t0 = time.time()
+
     #Use this where you want your output folder to be. Preferably empty
-    OutputDirStr = input('Where should your output folder should? Preferrably empty \n')
+    OutputDirStr = input('Where should your output folder be? Preferrably empty \n')
     print('Output folder: ', OutputDirStr)
     CheckFolderIsValid(OutputDirStr)
 
     #Where the input folder is, with maps/
-    InputFolderStr = input('Where your input folder is, with the subfolder /maps? \n')
+    InputFolderStr = input('Where is your input folder, with the subfolder /maps? \n')
+    t0 = time.time() #Starts timer
     print('Input folder: ', InputFolderStr)
     CheckFolderIsValid(InputFolderStr)
+
+    IsParallelStr = input('Do you wish to turn on parallelization? It makes the program faster, but it can cause some issues. Type \'yes\' or \'no\'\n' )
+    IsParallel = True
+    if IsParallelStr.lower() == 'no':
+        IsParallel = False
 
     InputFolder = Path(InputFolderStr)
     TempDir = Path(OutputDirStr)
@@ -30,6 +36,7 @@ if __name__ == '__main__':
 
     Arguments = []
     for m in MapsList:
+        if IsParallel
         Arguments.append((str(m), OutputDirStr))
 
 
@@ -39,14 +46,9 @@ if __name__ == '__main__':
 
     #Puts the original assets in our folder
     print('Copying original files')
-    Args2 = list()
     for src_dir, dirs, files in os.walk(InputFolder):
             for file_ in files:
-                Args2.append([file_, src_dir, InputFolderStr, OutputDirStr])
-
-    pool2 = multiprocessing.Pool()
-    pool2.starmap(CopyFile, Args2)
-    pool2.close()
+                CopyFile(file_, src_dir, InputFolderStr, OutputDirStr)
 
     t1 = time.time()
     print('Operation complete in ', round(t1 - t0, 2), ' seconds')
