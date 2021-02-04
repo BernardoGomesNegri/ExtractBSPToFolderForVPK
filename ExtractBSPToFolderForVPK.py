@@ -36,13 +36,15 @@ if __name__ == '__main__':
 
     Arguments = []
     for m in MapsList:
-        if IsParallel
-        Arguments.append((str(m), OutputDirStr))
+        if IsParallel:
+            Arguments.append((str(m), OutputDirStr))
+        else:
+            CopyMapContents(str(m), OutputDirStr)
 
-
-    pool = multiprocessing.Pool()
-    pool.starmap(CopyMapContents, Arguments)
-    pool.close()
+    if IsParallel:
+        pool = multiprocessing.Pool()
+        pool.starmap(CopyMapContents, Arguments)
+        pool.close()
 
     #Puts the original assets in our folder
     print('Copying original files')
