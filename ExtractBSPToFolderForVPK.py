@@ -8,7 +8,7 @@ import sys
 from CheckFolderIsValid import CheckFolderIsValid
 import time
 
-t0 = time.time()
+
 #Use this where you want your output folder to be. Preferably empty
 OutputDirStr = input('Where your output folder should be. Preferrably empty \n')
 print('Output folder: ', OutputDirStr)
