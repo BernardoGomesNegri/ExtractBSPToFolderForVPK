@@ -6,7 +6,9 @@ import subprocess
 import glob
 import sys
 from CheckFolderIsValid import CheckFolderIsValid
+import time
 
+t0 = time.time()
 #Use this where you want your output folder to be. Preferably empty
 OutputDirStr = input('Where your output folder should be. Preferrably empty \n')
 print('Output folder: ', OutputDirStr)
@@ -14,6 +16,9 @@ CheckFolderIsValid(OutputDirStr)
 
 #Where the input folder is, with maps/
 InputFolderStr = input('Where your input folder is, with the subfolder /maps \n')
+
+t0 = time.time()
+
 print('Input folder: ', InputFolderStr)
 CheckFolderIsValid(OutputDirStr)
 
@@ -58,6 +63,14 @@ for src_dir, dirs, files in os.walk(InputFolder):
         for file_ in files:
             src_file = os.path.join(src_dir, file_)
             src_path = src_file.replace(InputFolderStr, '', 1)
+
+            if os.name == 'posix':
+                src_path = src_file.replace(InputFolderStr, '', 1).replace('/', '', 1)
+            else:
+                src_path = src_file.replace(InputFolderStr, '', 1).replace('\\', '', 1)
+
             dst_file = os.path.join(OutputDirStr, src_path)
             shutil.copy(src_file, dst_file)
+t1 = time.time()
+print('Operation done in ', round(t1 - t0, 2), ' seconds')
 print('Files ready to be packaged in VPK')
