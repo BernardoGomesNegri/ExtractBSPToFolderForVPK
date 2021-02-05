@@ -1,7 +1,7 @@
 import os
-import shutil
 from pathlib import Path
 from CheckFolderIsValid import CheckFolderIsValid
+from CheckFolderIsValid import CheckInputDir
 from CopyMapContents import CopyMapContents
 from CopyFile import CopyFile
 import multiprocessing
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     InputFolderStr = input('Where is your input folder, with the subfolder /maps? \n')
     t0 = time.time() #Starts timer
     print('Input folder: ', InputFolderStr)
-    CheckFolderIsValid(InputFolderStr)
+    CheckInputDir(InputFolderStr)
 
     IsParallelStr = input('Do you wish to turn on parallelization? It makes the program faster, but it can cause some issues. Type \'yes\' or \'no\'\n' )
     IsParallel = True

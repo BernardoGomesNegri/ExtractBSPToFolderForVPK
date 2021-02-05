@@ -8,3 +8,28 @@ def CheckFolderIsValid(folder):
     if not os.access(folder, os.W_OK):
         print('The specified folder cannot be written')
         sys.exit(2)
+
+def CheckInputDir(folder):
+    CheckFolderIsValid(folder)
+    files = os.listdir(folder)
+    HasMapsSubfolder = False
+    for file in files:
+        f = os.path.join(folder, file)
+        if os.path.isdir(f) and file.lower() == 'maps':
+            HasMapsSubfolder = True
+    if not HasMapsSubfolder:
+        print('Make sure there is a /maps subfolder')
+        sys.exit(3)
+    
+    HasMapFiles = False
+    for dir, subdirs, fs in os.walk(folder):
+        for file_ in fs:
+            if all(x in file_ for x in '.bsp'):
+                HasMapFiles = True
+                break
+        if HasMapFiles:
+            break
+    if not HasMapFiles:
+        print('Make sure there are .bsp files')
+        sys.exit(4)
+        
