@@ -24,7 +24,7 @@ def CheckInputDir(folder):
     HasMapFiles = False
     for dir, subdirs, fs in os.walk(folder):
         for file_ in fs:
-            if all(x in file_ for x in '.bsp'):
+            if file_.lower().endswith('.bsp'):
                 HasMapFiles = True
                 break
         if HasMapFiles:

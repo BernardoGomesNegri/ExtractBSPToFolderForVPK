@@ -1,36 +1,44 @@
 import os
 from pathlib import Path
-from CheckFolderIsValid import CheckFolderIsValid
-from CheckFolderIsValid import CheckInputDir
+from CheckFolderIsValid import CheckFolderIsValid, CheckInputDir
 from CopyMapContents import CopyMapContents
 from CopyFile import CopyFile
 import multiprocessing
 import time
-
+import argparse
 
 if __name__ == '__main__':
+    argParser = argparse.ArgumentParser()
+    argParser.add_argument('-i', '--input', type=str)
+    argParser.add_argument('-o', '--output', type=str)
+    argParser.add_argument('-s', '--singlethread', action="store_true", default=False)
+    args = argParser.parse_args()
 
-    #Use this where you want your output folder to be. Preferably empty
-    OutputDirStr = input('Where should your output folder be? Preferrably empty \n')
+
+    if args.input is None:
+        InputDirStr = input('Where is your input folder, with the subfolder /maps? \n')
+    else:
+        InputDirStr = args.input
+    
+    print('Input folder: ', InputDirStr)
+    CheckInputDir(InputDirStr)
+    
+    if args.output is None:
+        OutputDirStr = input('Where should your output folder be? Preferrably empty \n')
+    else:
+        OutputDirStr = args.output
+    
     print('Output folder: ', OutputDirStr)
     CheckFolderIsValid(OutputDirStr)
 
-    #Where the input folder is, with maps/
-    InputFolderStr = input('Where is your input folder, with the subfolder /maps? \n')
+    IsParallel = not args.singlethread
+
     t0 = time.time() #Starts timer
-    print('Input folder: ', InputFolderStr)
-    CheckInputDir(InputFolderStr)
-
-    IsParallelStr = input('Do you wish to turn on parallelization? It makes the program faster, but it can cause some issues. Type \'yes\' or \'no\'\n' )
-    IsParallel = True
-    if IsParallelStr.lower() == 'no':
-        IsParallel = False
-
-    InputFolder = Path(InputFolderStr)
+    InputFolder = Path(InputDirStr)
     TempDir = Path(OutputDirStr)
 
     #Start by extracting all the map files and putting them into our temporary directory
-    MapsFolderStr = os.path.join(InputFolderStr, 'maps\\')
+    MapsFolderStr = os.path.join(InputDirStr, 'maps\\')
     Maps = Path(MapsFolderStr).rglob('*.bsp')
     MapsList = [x for x in Maps]
 
@@ -50,7 +58,7 @@ if __name__ == '__main__':
     print('Copying original files')
     for src_dir, dirs, files in os.walk(InputFolder):
             for file_ in files:
-                CopyFile(file_, src_dir, InputFolderStr, OutputDirStr)
+                CopyFile(file_, src_dir, InputDirStr, OutputDirStr)
 
     t1 = time.time()
     print('Operation complete in ', round(t1 - t0, 2), ' seconds')
