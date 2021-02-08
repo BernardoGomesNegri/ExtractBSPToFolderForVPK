@@ -3,21 +3,21 @@ import zipfile
 import os
 import sys
 
-def CopyMapContents(map, output):
+def copy_map_contents(map, output):
     try:
         print('Trying map ', map, ' to output: ', output)
         z = zipfile.ZipFile(map)
-        fileList = z.namelist()
-        outputPath = pathlib.Path(output)
+        file_list = z.namelist()
+        output_path = pathlib.Path(output)
         subdirectories = ('cfg', 'maps', 'materials', 'media', 'resource', 'scripts', 'sound', 'models')
-        for embeddedFile in fileList:
+        for embeddedFile in file_list:
 
             if(embeddedFile.startswith(subdirectories)):
                 #We found an asset file!
 
-                PathToExtract = os.path.join(outputPath)
+                path_to_extract = os.path.join(output_path)
 
-                z.extract(embeddedFile, PathToExtract)
+                z.extract(embeddedFile, path_to_extract)
             
         print('Done map ' + map)
     except Exception:

@@ -1,7 +1,7 @@
 import os
 import sys
 
-def CheckFolderIsValid(folder):
+def check_folder_is_valid(folder):
     if not os.path.isdir(folder):
         print('The specified folder does not exist. Please create it')
         sys.exit(1)
@@ -9,8 +9,8 @@ def CheckFolderIsValid(folder):
         print('The specified folder cannot be written')
         sys.exit(2)
 
-def CheckInputDir(folder):
-    CheckFolderIsValid(folder)
+def check_input_dir(folder):
+    check_folder_is_valid(folder)
     files = os.listdir(folder)
     HasMapsSubfolder = False
     for file in files:

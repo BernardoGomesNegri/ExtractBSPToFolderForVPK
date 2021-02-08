@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def CopyFile(file_, src_dir, input, output):
+def copy_file(file_, src_dir, input, output):
 
     src_file = os.path.join(src_dir, file_)
     src_path = src_file.replace(input, '', 1)
