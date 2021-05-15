@@ -2,12 +2,19 @@
 This is a script made to work around a bug in Source Engine which does not allow it to read assets embedded in .bsp files when they are inside a .vpk
 
 ## Running it
-Change the file paths to match where are your folders.
+Run ExtractBSPToFolderForVPK.py using the python interpreter (python3 on Linux, python on Windows), the script will prompt you to indicate the input and output folders respectively
 
-* OutputDirStr: Should be an empty folder where the result of the process is. You can drag this folder directly to VPK.exe
-* InputFolderStr: The folder where you downloaded the maps where that you want to extract. Should have at least a maps/ subfolder.
+* Output: Should be an empty folder where the result of the process is. You can drag this folder directly to VPK.exe
+* Input: The folder where you downloaded the maps where that you want to extract. Should have at least a maps/ subfolder.
 
 After running the program, use VPK.exe to transform it to a vpk file (instructions [here](https://developer.valvesoftware.com/wiki/VPK)). If the filesize of the output folder is more than 200MB, run VPK.exe in multichunk mode (described in the website).
+
+### Parameters
+The program supports various parameters:
+
+* -i | --input can be used to specify the input folder before running.
+* -o | --output can be used to specify the output folder before running.
+* -s | --singlethread makes the program only use a single thread for computing, which may slow down the process significantly.
 
 ## Why?
 There is currently a bug in Source Engine (which I know exists in Team Fortress 2, don't know about other games) that prevents the game from loading asset files embedded in a map file (.bsp file) while the map file is inside a .vpk file.
@@ -20,7 +27,7 @@ For example, it transforms this folder structure:
   * maps
     * cp_example
       * materials
-        * texture.vmt (this file wouldn't be read if this was a vpk)
+        * texture.vmt (this file wouldn't be read if root dir was a vpk)
 
 Into this:
 

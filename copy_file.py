@@ -30,4 +30,3 @@ def copy_file(file_, src_dir, input, output):
             os.mkdir(p)
 
     shutil.copy(src_file, dst_file)
-    

@@ -36,4 +36,3 @@ def check_input_dir(folder):
     if not HasMapFiles:
         print('Make sure there are .bsp files')
         sys.exit(4)
-        
