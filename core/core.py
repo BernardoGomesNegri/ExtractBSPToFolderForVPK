@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from core.check_folder_is_valid import check_folder_is_valid, check_input_dir
 from core.copy_map_contents import copy_map_contents
@@ -7,35 +8,42 @@ import multiprocessing
 import time
 import argparse
 
-def main() -> None :
+def main(inputarg='', outputarg='') -> None :
     #Prepares arguments
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-i', '--input', type=str)
     arg_parser.add_argument('-o', '--output', type=str)
     arg_parser.add_argument('-s', '--singlethread', action="store_true", default=False)
-    args = arg_parser.parse_args()
+    cmd_args = arg_parser.parse_args()
 
     #If there is no input parameter, ask
-    if args.input is None:
-        input_dir_str = input('Where is your input folder, with the subfolder /maps? \n')
+    if inputarg != '':
+        input_dir_str = inputarg
+    elif not(cmd_args.input is None):
+        input_dir_str = cmd_args.input
     else:
-        input_dir_str = args.input
+        input_dir_str = input('Where is your input folder, with the subfolder /maps? \n')
     
     print('Input folder: ', input_dir_str)
     check_input_dir(input_dir_str)
     
     #If there is no output parameter, ask
-    if args.output is None:
-        output_dir_str = input('Where should your output folder be? Preferrably empty \n')
+    if outputarg != '':
+        output_dir_str = outputarg
+    elif not(cmd_args.output is None):
+        output_dir_str = cmd_args.output
     else:
-        output_dir_str = args.output
+        output_dir_str = input('Where is your input folder, with the subfolder /maps? \n')
     
     t0 = time.time() #Starts timer
     
     print('Output folder: ', output_dir_str)
-    check_folder_is_valid(output_dir_str)
+    if(not(check_folder_is_valid(output_dir_str))):
+        sys.exit(2)
+    if(not(check_input_dir(input_dir_str))):
+        sys.exit(1)
 
-    is_parallel = not args.singlethread
+    is_parallel = not cmd_args.singlethread
 
     input_folder = Path(input_dir_str)
     temp_dir = Path(output_dir_str)

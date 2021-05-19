@@ -2,16 +2,17 @@ import os
 import sys
 
 #Check to see if the folder exists and is writable
-def check_folder_is_valid(folder: str) -> None:
+def check_folder_is_valid(folder: str) -> bool:
     if not os.path.isdir(folder):
         print('The specified folder does not exist. Please create it')
-        sys.exit(1)
+        return False
     if not os.access(folder, os.W_OK):
         print('The specified folder cannot be written')
-        sys.exit(2)
+        return False
+    return True
 
 #Check that it has a maps subfolder and a .bsp file.
-def check_input_dir(folder: str) -> None:
+def check_input_dir(folder: str) -> bool:
     check_folder_is_valid(folder)
     folder_files = os.listdir(folder)
     has_maps_subfolder = False
@@ -23,7 +24,7 @@ def check_input_dir(folder: str) -> None:
             break
     if not has_maps_subfolder:
         print('Make sure there is a /maps subfolder')
-        sys.exit(3)
+        return False
     
     HasMapFiles = False
     for dir, subdirs, fs in os.walk(folder):
@@ -35,4 +36,5 @@ def check_input_dir(folder: str) -> None:
             break
     if not HasMapFiles:
         print('Make sure there are .bsp files')
-        sys.exit(4)
+        return False
+    return True

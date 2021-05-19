@@ -5,10 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Python: GUI file",
             "type": "python",
             "request": "launch",
             "program": "gui.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: CLI file",
+            "type": "python",
+            "request": "launch",
+            "program": "core/core.py",
             "console": "integratedTerminal"
         }
     ]
