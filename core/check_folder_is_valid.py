@@ -2,7 +2,7 @@ import os
 import sys
 
 #Check to see if the folder exists and is writable
-def check_folder_is_valid(folder):
+def check_folder_is_valid(folder: str) -> None:
     if not os.path.isdir(folder):
         print('The specified folder does not exist. Please create it')
         sys.exit(1)
@@ -11,7 +11,7 @@ def check_folder_is_valid(folder):
         sys.exit(2)
 
 #Check that it has a maps subfolder and a .bsp file.
-def check_input_dir(folder):
+def check_input_dir(folder: str) -> None:
     check_folder_is_valid(folder)
     folder_files = os.listdir(folder)
     has_maps_subfolder = False

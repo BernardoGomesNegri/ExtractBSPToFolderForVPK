@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
-from check_folder_is_valid import check_folder_is_valid, check_input_dir
-from copy_map_contents import copy_map_contents
-from copy_file import copy_file
+from core.check_folder_is_valid import check_folder_is_valid, check_input_dir
+from core.copy_map_contents import copy_map_contents
+from core.copy_file import copy_file
 import multiprocessing
 import time
 import argparse
 
-if __name__ == '__main__':
+def main() -> None :
     #Prepares arguments
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-i', '--input', type=str)
@@ -69,3 +69,7 @@ if __name__ == '__main__':
     t1 = time.time()
     print('Operation complete in ', round(t1 - t0, 2), ' seconds')
     print('Files ready to be packaged in VPK')
+
+
+if __name__ == '__main__':
+    main()

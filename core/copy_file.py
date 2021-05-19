@@ -2,7 +2,7 @@ import os
 import shutil
 import pathlib
 
-def copy_file(file_, src_dir, input, output):
+def copy_file(file_: str, src_dir: str, input: str, output: str) -> None:
 
     src_file = os.path.join(src_dir, file_)
 

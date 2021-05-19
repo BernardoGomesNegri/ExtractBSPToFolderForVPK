@@ -3,7 +3,7 @@ import zipfile
 import os
 import sys
 
-def copy_map_contents(map, output):
+def copy_map_contents(map: str, output: str) -> None:
     try:
         print('Trying map ', map, ' to output: ', output)
         z = zipfile.ZipFile(map)
