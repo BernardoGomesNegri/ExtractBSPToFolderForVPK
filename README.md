@@ -1,15 +1,23 @@
 # ExtractBSPToFolderForVPK
 This is a script made to work around a bug in Source Engine which does not allow it to read assets embedded in .bsp files when they are inside a .vpk
 
-## Running it
-Run ExtractBSPToFolderForVPK.py using the python interpreter (python3 on Linux, python on Windows), the script will prompt you to indicate the input and output folders respectively
+## Run it with the GUI
+To run it with user interface, run the file "gui.py" with the Python interpreter (python3 on Linux, python on Windows.) A new window will open, choose an input and output folder and click "start process". Wait a while, it may take long, but it will inform you if there is an error. The folders are:
 
 * Output: Should be an empty folder where the result of the process is. You can drag this folder directly to VPK.exe
 * Input: The folder where you downloaded the maps where that you want to extract. Should have at least a maps/ subfolder.
 
 After running the program, use VPK.exe to transform it to a vpk file (instructions [here](https://developer.valvesoftware.com/wiki/VPK)). If the filesize of the output folder is more than 200MB, run VPK.exe in multichunk mode (described in the website).
 
-### Parameters
+## Run it with the command line
+Run "cli.py" using the python interpreter (python3 on Linux, python on Windows), the script will prompt you to indicate the input and output folders respectively
+
+* Output: Should be an empty folder where the result of the process is. You can drag this folder directly to VPK.exe
+* Input: The folder where you downloaded the maps where that you want to extract. Should have at least a maps/ subfolder.
+
+After running the program, use VPK.exe to transform it to a vpk file (instructions [here](https://developer.valvesoftware.com/wiki/VPK)). If the filesize of the output folder is more than 200MB, run VPK.exe in multichunk mode (described in the website).
+
+### Command line parameters
 The program supports various parameters:
 
 * -i | --input can be used to specify the input folder before running.
