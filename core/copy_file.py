@@ -1,6 +1,7 @@
 import os
 import shutil
 import pathlib
+from typing import List
 
 def copy_file(file_: str, src_dir: str, input_dir: str, output_dir: str) -> None:
 
@@ -14,7 +15,7 @@ def copy_file(file_: str, src_dir: str, input_dir: str, output_dir: str) -> None
     #We need to create the subfolders in our output that do not exist
     output_path_obj = pathlib.Path(dst_file)
     output_parents = output_path_obj.parents
-    output_parents_trimmed = []
+    output_parents_trimmed: List[pathlib.Path] = []
     output_parents = reversed(output_parents)
     for parent in output_parents:
         if parent.is_relative_to(output_dir):

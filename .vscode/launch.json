@@ -15,7 +15,7 @@
             "name": "Python: CLI file",
             "type": "python",
             "request": "launch",
-            "program": "core/core.py",
+            "program": "cli.py",
             "console": "integratedTerminal"
         }
     ]

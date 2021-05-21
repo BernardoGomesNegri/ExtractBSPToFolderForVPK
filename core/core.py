@@ -88,6 +88,3 @@ def main(inputarg='', outputarg='', callback: Callable=None, error_callback: Cal
             error_callback(e)
         else:
             print_ex(e)
-
-if __name__ == '__main__':
-    main()
