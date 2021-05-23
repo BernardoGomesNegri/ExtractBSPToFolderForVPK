@@ -5,7 +5,6 @@ from tkinter import filedialog
 from core.check_folder_is_valid import *
 from core.core import main
 from core.print_ex import print_ex
-import multiprocessing
 import threading
 
 class GuiHandler:
@@ -78,7 +77,7 @@ class GuiHandler:
             # Start main on a separate process
             self.core_thread = threading.Thread(target=self.start, name='corethread')
             self.core_thread.start()
-            self.status_indicator.configure(text='Running. No error yet')
+            self.status_indicator.configure(text='Running. No error yet, this may take a while')
             self.running = True
         else:
             self.status_indicator.configure(text='Either the program is already running or the input or output are not valid')
