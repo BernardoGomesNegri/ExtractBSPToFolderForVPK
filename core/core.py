@@ -53,7 +53,7 @@ def main(inputarg='', outputarg='', callback: Callable=None, error_callback: Cal
         temp_dir = Path(output_dir_str)
 
         #Start by searching all .bsp files in the maps subfolder
-        maps_folder_str = os.path.join(input_dir_str, 'maps\\')
+        maps_folder_str = os.path.join(input_dir_str, 'maps')
         maps = Path(maps_folder_str).rglob('*.bsp')
         maps_list = [x for x in maps]
 

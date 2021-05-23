@@ -57,9 +57,9 @@ class GuiHandler:
         if((self.output != None) and (self.output != '')):
             # Make sure it is valid
             if(check_folder_is_valid(self.output)):
-                self.text_output.configure(text=f'The input directory is: {self.output}')
+                self.text_output.configure(text=f'The output directory is: {self.output}')
             else:
-                self.text_output.configure(text='Select a folder which has a maps/ subfolder')
+                self.text_output.configure(text='Select a folder which exists and is writeable')
                 self.output = ''
                 self.status_indicator.configure(text='Select a valid output folder')
 
