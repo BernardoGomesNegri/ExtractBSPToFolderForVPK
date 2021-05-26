@@ -1,5 +1,4 @@
 import os
-import sys
 
 #Check to see if the folder exists and is writable
 def check_folder_is_valid(folder: str) -> bool:

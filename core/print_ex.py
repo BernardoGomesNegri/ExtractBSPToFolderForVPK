@@ -1,6 +1,6 @@
 import sys
 
-def print_ex(e: BaseException):
+def print_ex(e: Exception):
     print(e)
     type, value, traceback = sys.exc_info()
     print(str(type))

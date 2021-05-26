@@ -1,7 +1,7 @@
 import os
 import sys
 from pathlib import Path
-from typing import Callable
+from typing import Callable, List, Optional, Tuple
 from core.check_folder_is_valid import check_folder_is_valid, check_input_dir
 from core.copy_map_contents import copy_map_contents
 from core.copy_file import copy_file
@@ -10,7 +10,11 @@ import multiprocessing
 import time
 import argparse
 
-def main(inputarg='', outputarg='', callback: Callable=None, error_callback: Callable=None) -> None :
+def main(
+        inputarg: str='',
+        outputarg: str='',
+        callback: Optional[Callable[[], None]]=None,
+        error_callback: Optional[Callable[[Exception], None]]=None) -> None:
     try:
 
         #Prepares arguments
@@ -24,7 +28,7 @@ def main(inputarg='', outputarg='', callback: Callable=None, error_callback: Cal
         if inputarg != '':
             input_dir_str = inputarg
         elif not(cmd_args.input is None):
-            input_dir_str = cmd_args.input
+            input_dir_str: str = cmd_args.input
         else:
             input_dir_str = input('Where is your input folder, with the subfolder /maps? \n')
         
@@ -35,7 +39,7 @@ def main(inputarg='', outputarg='', callback: Callable=None, error_callback: Cal
         if outputarg != '':
             output_dir_str = outputarg
         elif not(cmd_args.output is None):
-            output_dir_str = cmd_args.output
+            output_dir_str: str = cmd_args.output
         else:
             output_dir_str = input('Where is your output folder, preferably empty. \n')
         
@@ -50,7 +54,6 @@ def main(inputarg='', outputarg='', callback: Callable=None, error_callback: Cal
         is_parallel = not cmd_args.singlethread
 
         input_folder = Path(input_dir_str)
-        temp_dir = Path(output_dir_str)
 
         #Start by searching all .bsp files in the maps subfolder
         maps_folder_str = os.path.join(input_dir_str, 'maps\\')
@@ -58,17 +61,17 @@ def main(inputarg='', outputarg='', callback: Callable=None, error_callback: Cal
         maps_list = [x for x in maps]
 
         #Copy those map contents.
-        Arguments = []
+        arguments: List[Tuple[str, str]] = []
         for m in maps_list:
             if is_parallel:
-                Arguments.append((str(m), output_dir_str))
+                arguments.append((str(m), output_dir_str))
             else:
                 copy_map_contents(str(m), output_dir_str)
 
         #If parallel, use Pool.starmap to run the copy files function
         if is_parallel:
             pool = multiprocessing.Pool()
-            pool.starmap(copy_map_contents, Arguments)
+            pool.starmap(copy_map_contents, arguments)
             pool.close()
 
         #Puts the original assets in our output folder folder

@@ -1,4 +1,3 @@
-from os import error, name
 import tkinter
 import tkinter.constants
 from tkinter import filedialog
@@ -40,7 +39,7 @@ class GuiHandler:
         self.top.mainloop()
 
     def input_click(self) -> None:
-        self.input = filedialog.askdirectory()
+        self.input: str = filedialog.askdirectory()
         print(f'The input directory is: {self.input}')
         if((self.input != None) and (self.input != '')):
             # Make sure it is valid
@@ -52,7 +51,7 @@ class GuiHandler:
                 self.status_indicator.configure(text='Select a valid input folder')
 
     def output_click(self):
-        self.output = filedialog.askdirectory()
+        self.output: str = filedialog.askdirectory()
         print(f'The output directory is: {self.output}')
         if((self.output != None) and (self.output != '')):
             # Make sure it is valid
@@ -63,7 +62,7 @@ class GuiHandler:
                 self.output = ''
                 self.status_indicator.configure(text='Select a valid output folder')
 
-    def main_error_callback(self, err):
+    def main_error_callback(self, err: Exception):
         self.status_indicator.configure(text='There was an error')
         print(f'There was an error. The error was: {err}')
         print_ex(err)
