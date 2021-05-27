@@ -2,7 +2,7 @@ import os
 import sys
 from pathlib import Path
 from typing import Callable, List, Optional, Tuple
-from core.check_folder_is_valid import check_folder_is_valid, check_input_dir
+from core.check_folder_is_valid import check_folder_exists, check_input_dir
 from core.copy_map_contents import copy_map_contents
 from core.copy_file import copy_file
 from core.print_ex import print_ex
@@ -46,7 +46,7 @@ def main(
         t0 = time.time() #Starts timer
         
         print('Output folder: ', output_dir_str)
-        if(not(check_folder_is_valid(output_dir_str))):
+        if(not(check_folder_exists(output_dir_str))):
             sys.exit(2)
         if(not(check_input_dir(input_dir_str))):
             sys.exit(1)

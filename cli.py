@@ -1,6 +1,6 @@
+"""Wrapper for CLI interface.
+    Would not work if we ran core.core.main directly"""
 from core.core import main
 
-"""Wrapper for CLI interface"""
-"""Won't work if we run core.core.main directly"""
 if __name__ == '__main__':
     main()

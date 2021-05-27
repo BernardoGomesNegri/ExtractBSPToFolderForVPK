@@ -13,10 +13,17 @@
         },
         {
             "name": "Python: CLI file",
+            "preLaunchTask": "cleanOutput",
             "type": "python",
             "request": "launch",
             "program": "cli.py",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "args": [
+                "-i",
+                "D:\\Temp\\TesteInput",
+                "-o",
+                "D:\\Temp\\Test2"
+            ]
         }
     ]
 }

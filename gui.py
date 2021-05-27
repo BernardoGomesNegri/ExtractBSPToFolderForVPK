@@ -6,7 +6,10 @@ from core.core import main
 from core.print_ex import print_ex
 import threading
 
+
 class GuiHandler:
+    """Creates the GUI. Also contains all the methods for said GUI"""
+
     def __init__(self):
         self.top = tkinter.Tk()
         self.top.title('Extract BSP to folder for VPK')
@@ -55,7 +58,7 @@ class GuiHandler:
         print(f'The output directory is: {self.output}')
         if((self.output != None) and (self.output != '')):
             # Make sure it is valid
-            if(check_folder_is_valid(self.output)):
+            if(check_folder_exists(self.output)):
                 self.text_output.configure(text=f'The output directory is: {self.output}')
             else:
                 self.text_output.configure(text='Select a folder which exists and is writeable')
