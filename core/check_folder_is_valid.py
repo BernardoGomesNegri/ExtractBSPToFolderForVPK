@@ -21,17 +21,7 @@ def check_input_dir(folder: str) -> bool:
     if not (check_folder_exists(folder)):
         return False
     
-    folder_files = os.listdir(folder)
     has_maps_subfolder = False
-    for file in folder_files:
-        full_file = os.path.join(folder, file)
-        if os.path.isdir(full_file) and file.lower() == 'maps':
-            has_maps_subfolder = True
-            #No need to keep searching
-            break
-    if not has_maps_subfolder:
-        print('Make sure there is a /maps subfolder')
-        return False
     
     has_map_files = False
     for dir, subdirs, fs in os.walk(folder):
@@ -51,6 +41,10 @@ def check_input_dir(folder: str) -> bool:
     if not has_map_files:
         print('Make sure there are .bsp files')
         return False
+    if not has_maps_subfolder:
+        print('Make sure there is a /maps subfolder')
+        return False
+    
     return True
 
 def check_output_dir(folder: str) -> bool:
