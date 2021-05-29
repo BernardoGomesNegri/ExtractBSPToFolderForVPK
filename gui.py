@@ -11,6 +11,7 @@ class GuiHandler:
     """Creates the GUI. Also contains all the methods for said GUI"""
 
     def __init__(self):
+        """Starts everything. Also starts mainloop"""
         self.top = tkinter.Tk()
         self.top.title('Extract BSP to folder for VPK')
 
