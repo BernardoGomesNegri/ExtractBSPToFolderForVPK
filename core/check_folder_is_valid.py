@@ -32,7 +32,7 @@ def check_input_dir(folder: str) -> bool:
         
         for subdir in subdirs:
             full_folder = os.path.join(folder, subdir)
-            if os.path.isdir(full_folder) and (full_folder.lower() == 'maps') and not(has_maps_subfolder):
+            if os.path.isdir(full_folder) and (subdir.lower() == 'maps') and not(has_maps_subfolder):
                 has_maps_subfolder = True
         
         if has_map_files and has_maps_subfolder:
@@ -50,8 +50,8 @@ def check_input_dir(folder: str) -> bool:
 def check_output_dir(folder: str) -> bool:
     """Checks the folder exists and is writable"""
     
-    if not (check_folder_exists):
+    if not (check_folder_exists(folder)):
         return False
-    if not (check_folder_writable):
+    if not (check_folder_writable(folder)):
         return False
     return True
