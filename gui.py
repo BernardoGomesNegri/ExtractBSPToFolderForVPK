@@ -1,11 +1,14 @@
 import tkinter
 import tkinter.constants
 from tkinter import filedialog
+from typing import Optional
 from core.check_folder_is_valid import *
 from core.core import main
 from core.print_ex import print_ex
 import threading
 
+def askdirwrapper() -> Optional[str]:
+    return filedialog.askdirectory(mustexist=True)
 
 class GuiHandler:
     """Creates the GUI. Also contains all the methods for said GUI"""
@@ -21,8 +24,8 @@ class GuiHandler:
         self.top.iconphoto(True, icon)
 
         # Setup variables
-        self.input = ''
-        self.output = ''
+        self.input: Optional[str] = ''
+        self.output: Optional[str] = ''
         self.running = False
 
         # Add elements
@@ -44,7 +47,7 @@ class GuiHandler:
         self.top.mainloop()
 
     def input_click(self) -> None:
-        self.input: str = filedialog.askdirectory()
+        self.input = askdirwrapper()
         print(f'The input directory is: {self.input}')
         if((self.input != None) and (self.input != '')):
             # Make sure it is valid
@@ -56,7 +59,7 @@ class GuiHandler:
                 self.status_indicator.configure(text='Select a valid input folder')
 
     def output_click(self):
-        self.output: str = filedialog.askdirectory()
+        self.output = askdirwrapper()
         print(f'The output directory is: {self.output}')
         if((self.output != None) and (self.output != '')):
             # Make sure it is valid
@@ -88,7 +91,8 @@ class GuiHandler:
 
     """Wrapper for main method"""
     def start(self):
-        main(self.input, self.output, self.main_callback, self.main_error_callback)
+        if self.input is not None and self.output is not None:
+            main(self.input, self.output, self.main_callback, self.main_error_callback)
 
 if __name__ == '__main__':
     gui_main = GuiHandler()

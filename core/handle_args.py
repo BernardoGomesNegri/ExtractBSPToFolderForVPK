@@ -25,10 +25,10 @@ def parse_args(inputarg: str, outputarg: str) -> Args:
     print('Output folder: ', output_dir_str)
     
     # Checks
-    if(not(check_output_dir(output_dir_str))):
+    if not check_output_dir(output_dir_str):
         print('Make sure the output exists and is writable')
         sys.exit(2)
-    if(not(check_input_dir(input_dir_str))):
+    if not check_input_dir(input_dir_str):
         print('Make sure the input exists and has a maps/ subfolder and .bsp files')
         sys.exit(1)
     

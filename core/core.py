@@ -45,7 +45,7 @@ def main(
 
         #Puts the original assets in our output folder folder
         print('Copying original files')
-        for src_dir, dirs, files in os.walk(input_folder):
+        for src_dir, _, files in os.walk(input_folder):
                 for file_ in files:
                     copy_file(file_, src_dir, input_dir_str, output_dir_str)
 

@@ -24,7 +24,7 @@ def check_input_dir(folder: str) -> bool:
     has_maps_subfolder = False
     
     has_map_files = False
-    for dir, subdirs, fs in os.walk(folder):
+    for _, subdirs, fs in os.walk(folder):
 
         for file_ in fs:
             if file_.lower().endswith('.bsp') and not(has_map_files):
