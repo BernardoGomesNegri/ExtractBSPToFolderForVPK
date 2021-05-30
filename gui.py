@@ -1,5 +1,6 @@
 import tkinter
 import tkinter.constants
+import tkinter.messagebox
 from tkinter import filedialog
 from typing import Optional
 from core.check_folder_is_valid import *
@@ -72,6 +73,7 @@ class GuiHandler:
 
     def main_error_callback(self, err: Exception):
         self.status_indicator.configure(text='There was an error')
+        tkinter.messagebox.showerror(title='There was an error', message='The error was: ' + str(err))
         print(f'There was an error. The error was: {err}')
         print_ex(err)
         self.running = False
