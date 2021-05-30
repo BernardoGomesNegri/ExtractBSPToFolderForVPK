@@ -24,6 +24,14 @@
                 "-o",
                 "D:\\Temp\\Test2"
             ]
+        },
+        {
+            "name": "CLI no args",
+            "preLaunchTask": "cleanOutput",
+            "type": "python",
+            "request": "launch",
+            "program": "cli.py",
+            "console": "integratedTerminal",
         }
     ]
 }
