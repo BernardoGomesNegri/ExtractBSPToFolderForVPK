@@ -1,5 +1,6 @@
 """Checks to see if the folder is a valid input/output"""
 import os
+from typing import Optional
 
 def check_folder_exists(folder: str) -> bool:
     """Check to see if the folder exists"""
@@ -15,8 +16,11 @@ def check_folder_writable (folder: str) -> bool:
         return False
     return True
 
-def check_input_dir(folder: str) -> bool:
+def check_input_dir(folder: Optional[str]) -> bool:
     """Check that it has a maps subfolder and a .bsp file."""
+
+    if folder is None:
+        return False
 
     if not (check_folder_exists(folder)):
         return False
@@ -47,11 +51,13 @@ def check_input_dir(folder: str) -> bool:
     
     return True
 
-def check_output_dir(folder: str) -> bool:
+def check_output_dir(folder: Optional[str]) -> bool:
     """Checks the folder exists and is writable"""
-    
-    if not (check_folder_exists(folder)):
+    if folder is not None:
+        if not (check_folder_exists(folder)):
+            return False
+        if not (check_folder_writable(folder)):
+            return False
+        return True
+    else:
         return False
-    if not (check_folder_writable(folder)):
-        return False
-    return True

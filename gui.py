@@ -1,8 +1,9 @@
+from os import error
 import tkinter
 import tkinter.constants
 import tkinter.messagebox
 from tkinter import filedialog
-from typing import Optional
+from typing import Callable, Optional
 from core.check_folder_is_valid import *
 from core.core import main
 from core.print_ex import print_ex
@@ -50,26 +51,22 @@ class GuiHandler:
     def input_click(self) -> None:
         self.input = askdirwrapper()
         print(f'The input directory is: {self.input}')
-        if((self.input != None) and (self.input != '')):
-            # Make sure it is valid
-            if(check_input_dir(self.input)):
-                self.text_input.configure(text=f'The input directory is: {self.input}')
-            else:
-                self.text_input.configure(text='Select a folder which has a maps/ subfolder and bsp files')
-                self.input = ''
-                self.status_indicator.configure(text='Select a valid input folder')
+        self.__path_check__(path=self.input,
+            error_status_text="Select a valid input folder",
+            text_element=self.text_input,
+            text_prefix="The input directory is: ",
+            error_text="Select a folder which has a maps/ subfolder and bsp files",
+            checkfn=check_input_dir)
 
     def output_click(self):
         self.output = askdirwrapper()
         print(f'The output directory is: {self.output}')
-        if((self.output != None) and (self.output != '')):
-            # Make sure it is valid
-            if(check_folder_exists(self.output)):
-                self.text_output.configure(text=f'The output directory is: {self.output}')
-            else:
-                self.text_output.configure(text='Select a folder which exists and is writeable')
-                self.output = ''
-                self.status_indicator.configure(text='Select a valid output folder')
+        self.__path_check__(path=self.output,
+            error_status_text="Select a valid output folder",
+            text_element=self.text_output,
+            text_prefix="Output folder is: ",
+            error_text="Select a writable folder that exists",
+            checkfn=check_output_dir)    
 
     def main_error_callback(self, err: Exception):
         self.status_indicator.configure(text='There was an error')
@@ -81,6 +78,7 @@ class GuiHandler:
     def main_callback(self):
         self.running = False
         self.status_indicator.configure(text='Files ready to be packaged using VPK. You can close the program now.')
+        
     def start_click(self):
         if (self.input != '') and (self.output != '') and (self.running == False):
             # Start main on a separate process
@@ -90,6 +88,15 @@ class GuiHandler:
             self.running = True
         else:
             self.status_indicator.configure(text='Either the program is already running or the input or output are not valid')
+
+    def __path_check__(self, path: Optional[str], error_status_text: str, text_element: tkinter.Label, text_prefix: str, error_text: str, checkfn: Callable[[Optional[str]], bool]) -> None:
+        """Warning: mutates path and text_element!"""
+        if checkfn(path) and path is not None:
+            text_element.configure(text=text_prefix + path)
+        else:
+            text_element.configure(text=error_text)
+            self.status_indicator.configure(text=error_status_text)
+            path = ''
 
     """Wrapper for main method"""
     def start(self):
